@@ -25,11 +25,10 @@ class UsersController < ApplicationController
     def update
         @user = User.find(params[:id])
         @user.update(user_params)
-        @user2 = User.new(user_params)
-        unless @user2.valid?
-          redirect_to edit_user_url(@user) 
-        else
+        if @user.save
           redirect_to user_path(@user)
+        else
+          render :edit
         end
             
     end 
